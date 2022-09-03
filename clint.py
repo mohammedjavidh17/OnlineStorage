@@ -21,14 +21,28 @@ def reply(cmd):
     cmd = cmd.decode("utf-8")
     if cmd == '-1':
         return 'break'
-
-while True:    
+def getConfig():
+    while True:
+        dta = s.recv(1024)
+        print(dta)
+        if not dta:
+            break
+def ReqAccess():
+    cmd = input("Enter the command : ")
+    s.send(cmd.encode('utf-8'))
+    buf = s.recv(1024)
+    print(buf)
+    if buf == b'GET':
+        getConfig()
+    else:
+        print("Invalid")
+while False:    
     A = [s.recv(1024)]
     if A[0].decode('utf-8') == 'READY':
         cmd = input("Enter the command : ")
         s.send(cmd.encode('utf-8'))
-        A.clear()
+        print(s.recv(1024))
     elif A[0].decode('utf-8') == 'BREAK':
         break
-            
-print("End")
+if(s.recv(1024) == b'READY'):
+    ReqAccess()
