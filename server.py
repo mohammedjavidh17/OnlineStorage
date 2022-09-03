@@ -23,8 +23,6 @@ def cmd(cmd, conn):
     elif cmd.split()[0] == '-1':
         return 'break'
 
-def sendConfig(lst):
-    pass
 def Authn(cmd):
     id = cmd.split()[1].decode('utf-8')
     pas = cmd.split()[2].decode('utf-8')
@@ -44,9 +42,15 @@ while True:
         rep = conn.recv(1024)
         print(rep)
         if rep.split()[0].decode('utf-8') == 'AUTH':
-            print("Reqested authetication")
             if Authn(rep):
-                sendConfig(rep.decode('utf-8').split())
+                conn.send(b'GET')
+                UserId = rep.split()[1]
+                #assets\data\U10001\config.csv
+                file = "assets\data\\"+'U'+str(UserId.decode('utf-8'))+"\config.csv"
+                f = open(file)
+                for row in f:
+                    conn.send(row.encode('utf-8'))
+                conn.send("READY")
+                cmd2 = conn.recv(1024)
             else:
                 conn.send(b"FAILED")
-
