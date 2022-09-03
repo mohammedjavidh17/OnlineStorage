@@ -23,13 +23,18 @@ def cmd(cmd, conn):
     elif cmd.split()[0] == '-1':
         return 'break'
 
+def sendConfig(lst):
+    pass
 def Authn(cmd):
-    id = cmd.split()[1]
-    pas = cmd.split()[2]
-    df = pd.read_csv("assets\user.csv")
-    for indx in df.shape[0]:
-        if df.iloc[indx:0] == pas:
-            pass
+    id = cmd.split()[1].decode('utf-8')
+    pas = cmd.split()[2].decode('utf-8')
+    df = pd.read_csv("assets\\user.csv")
+    for indx in range(df.shape[0]):
+        if str(df.iloc[indx,0]) == str(id):
+            if str(df.iloc[indx, 1]) == str(pas):
+                return True
+            else:
+                return False
 while True:
     conn, addr = s.accept()
     print('Connected by', addr)
@@ -40,3 +45,8 @@ while True:
         print(rep)
         if rep.split()[0].decode('utf-8') == 'AUTH':
             print("Reqested authetication")
+            if Authn(rep):
+                sendConfig(rep.decode('utf-8').split())
+            else:
+                conn.send(b"FAILED")
+
