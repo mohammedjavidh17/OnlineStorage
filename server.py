@@ -63,8 +63,8 @@ while True:
                     except:
                         continue
                     if cmd2.split()[0] == b'READ':
-                        lstCmd2 = cmd2.split()   #['READ', '<FILENO>/INDX']
-                        file = "assets\data\\"+'U'+str(UserId.decode('utf-8'))+"\\"+str(lstCmd2[1].decode('utf-8'))+".txt"
+                        lstCmd2 = cmd2.split()   #['READ', '<FILENO>/INDX', '<Extention>']
+                        file = "assets\data\\"+'U'+str(UserId.decode('utf-8'))+"\\"+str(lstCmd2[1].decode('utf-8'))+'.'+str(lstCmd2[2].decode('utf-8'))
                         f = open(file)
                         conn.sendall(f.read().encode('utf-8')) #SEND FILE
                         f.close()
@@ -96,3 +96,8 @@ while True:
                         conn.close()
             else: 
                 conn.send(b"FAILED")
+        elif rep.split()[0] == "NEW": #[NEW, "ID", "pas"]
+            NewId = rep.split()[1]
+            file = "assets\data\\U"+str(NewId)+"\\config.csv"
+            Sam = pd.read_csv("EmpytyConfig.csv")
+            Sam.to_csv(file, index=False)
