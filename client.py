@@ -15,7 +15,10 @@ print('Conencted')
 
 def csvOrga(dta:bytes) -> pd.DataFrame:
     f = open("buffer.txt", 'w')
-    f.write(dta.decode('utf-8'))
+    try:
+        f.write(dta.decode('utf-8'))
+    except:
+        f.write(dta)
     f.close()
     return pd.read_csv('buffer.txt')
 
@@ -46,6 +49,16 @@ def NewUser(cmd : bytes) -> str:
             return "EXIST"
         else:
             return "False"
+def reWrite(fNo: str, dta : str) -> bool:
+    cmd = "RE " + str(fNo)
+    cmd = cmd.encode('utf-8')
+    s.send(cmd)
+    rep1 = s.recv(1024)
+    print(rep1)
+    if rep1 == b"READY":
+        s.send(dta.encode('utf-8'))
+        return True
+    
 def write():
     rep1 = s.recv(1024)
     file = open('test.txt').read()
@@ -73,7 +86,9 @@ def GetFile(cmd : str):
     if rep1 == b'READY':
         s.send(cmd.encode('utf-8'))
         a= s.recv(40000000)
-        return a
+        s.send(b' ')
+        if s.recv(1024) == b'READY':
+            return a
             
     else:
         print("Foo")
