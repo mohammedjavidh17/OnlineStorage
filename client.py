@@ -1,7 +1,7 @@
 import socket
 from tkinter import messagebox
 import pandas as pd
-HOST = '10.7.139.40'
+HOST = '10.5.247.136'
 PORT = 42051
 
 def ThrowError():
@@ -17,7 +17,7 @@ def csvOrga(dta:bytes) -> pd.DataFrame:
     f = open("buffer.txt", 'w')
     f.write(dta.decode('utf-8'))
     f.close()
-    print(pd.read_csv('buffer.txt'))
+    return pd.read_csv('buffer.txt')
 
 def command(clnt, rep):
     ts = "None"
@@ -34,6 +34,18 @@ def reply(cmd):
     if cmd == '-1':
         return 'break'
 
+def NewUser(cmd : bytes) -> str:
+    rep1 = s.recv(1024)
+    print(rep1)
+    if rep1 == b'READY':
+        s.send(cmd)
+        rep2 = s.recv(1024)
+        if rep2 == b'DONE':
+            return "DONE"
+        elif rep2 == b'EXIST': 
+            return "EXIST"
+        else:
+            return "False"
 def write():
     rep1 = s.recv(1024)
     file = open('test.txt').read()
@@ -52,16 +64,16 @@ def ReqAccess(cmd : str) -> str:
     buf = s.recv(1024)
     print(buf)
     if buf == b'GET':
+        s.send(b' ')
         return getConfig()
     else:
         return "Invalid"
-def GetFile(FileNo : int):
+def GetFile(cmd : str):
     rep1 = s.recv(1024)
     if rep1 == b'READY':
-        cmd = "READ "+ str(3)
         s.send(cmd.encode('utf-8'))
         a= s.recv(40000000)
-        print(a)
+        return a
             
     else:
         print("Foo")
