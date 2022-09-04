@@ -64,7 +64,7 @@ while True:
                         continue
                     if cmd2.split()[0] == b'READ':
                         lstCmd2 = cmd2.split()   #['READ', '<FILENO>/INDX', '<Extention>']
-                        file = "assets\data\\"+'U'+str(UserId.decode('utf-8'))+"\\"+str(lstCmd2[1].decode('utf-8'))+'.'+str(lstCmd2[2].decode('utf-8'))
+                        file = "assets\data\\"+'U'+str(UserId.decode('utf-8'))+"\\"+str(lstCmd2[1].decode('utf-8'))+'.txt'
                         f = open(file)
                         conn.sendall(f.read().encode('utf-8')) #SEND FILE
                         f.close()
@@ -92,6 +92,15 @@ while True:
                         Sam = pd.read_csv("EmpytyConfig.csv")
                         Sam.to_csv(file, index=False)
                         conn.send(b'DONE')  #Confirmation
+                    elif cmd2.split()[0] == b"RE": #["RE", FileId]
+                        file = "assets\data\\"+'U'+str(UserId.decode('utf-8'))+"\\"+str(int(cmd2.split()[1].decode('utf-8'))+1)+".txt"
+                        conn.send(b"READY")
+                        print (file)
+                        print ('came')
+                        dt = conn.recv(40000000)
+                        f = open(file, 'w')
+                        f.write(dt.decode('utf-8'))
+                        f.close() 
                     elif cmd2.split()[0] == 'DIS': #["DIS", "DUMMY"]
                         conn.close()
             else: 
@@ -101,3 +110,4 @@ while True:
             file = "assets\data\\U"+str(NewId)+"\\config.csv"
             Sam = pd.read_csv("EmpytyConfig.csv")
             Sam.to_csv(file, index=False)
+
