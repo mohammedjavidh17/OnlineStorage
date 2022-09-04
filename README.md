@@ -14,3 +14,6 @@ Client can request the server using the syntax (Server can only understand Prope
 # DataStorage
 data is stored in .txt in server
 but clint can get file in the desire formate
+
+# SCREEN SHOTS
+![Screenshot (98)](https://user-images.githubusercontent.com/98268633/188300201-98ddf1d5-c38d-4a63-a6bb-0108cd5a0542.png)
