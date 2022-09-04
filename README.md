@@ -23,3 +23,11 @@ this the clint window
 Client can access Data only if the authorized
 ![Screenshot (99)](https://user-images.githubusercontent.com/98268633/188300250-8d343e39-856c-463f-ae3c-2ec4fb65ac1f.png)
 
+After Logining in
+![Screenshot (100)](https://user-images.githubusercontent.com/98268633/188300276-eb6eaf98-f153-4898-90e5-eb293992008a.png)
+
+User read, write(Edit) and save in this window
+// Client's computer is geting data directly from serveer (NO DATA IS STORED IN THE CLIENT's COMPUTER)
+// TI can only preview it
+![Screenshot (101)](https://user-images.githubusercontent.com/98268633/188300349-726e2487-6cf3-45d8-a9d6-652b92a9c4a7.png)
+
