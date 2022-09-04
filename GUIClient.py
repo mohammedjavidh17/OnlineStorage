@@ -15,13 +15,21 @@ def ClearAll():
 
 def DisWind(Con : pd.DataFrame):
     def Preview():
+        def Save():
+            if reWrite(str(Sel.get()), str(prev.get("1.0","end-1c"))):
+                ClearAll()
+                messagebox.showinfo("Restart", "Restart App")
+                rt.quit()
+            else:
+                messagebox.showerror("Error", "Something went wrong")
         PrevFrm = Frame(rt)
-        PrevFrm.place(relx=0.2, rely=0.02,anchor=NW, relwidth=0.8, relheight=0.8)
+        PrevFrm.place(relx=0.2, rely=0.02,anchor=NW, relwidth=0.7, relheight=0.8)
         prev = Text(PrevFrm)
-        prev.place(relx=0.01, rely=0.01, relheight=0.99, relwidth=0.99)
+        prev.place(relx=0.0, rely=0.0, relheight=0.9, relwidth=0.9, anchor=NW)
         indx = "READ "+str(Sel.get()+1)+" "+Ext[int(Sel.get())]
         dta = GetFile(indx).decode('utf-8')
         prev.insert(END, str(dta))
+        Button(PrevFrm, text="Svae File", font=fnt, command=Save).place(relx=0.01, rely=0.99, anchor=SW)
     s = ttk.Style()
     s.configure('my.TButton', font=('Consolas', 12))
     ClearAll()
@@ -60,6 +68,10 @@ def AuthWindow():
         pas.pack(pady=5)
         Button(FrmSign, text="Create Account", font=fnt, command=PreSign).pack(pady=10)
     def preAuth():
+        global glbId
+        global glbPas
+        glbId = str(ID.get())
+        glbPas = str(pas.get())
         cmd = "AUTH "+str(ID.get())+" "+str(pas.get())
         rep = ReqAccess(cmd)
         if rep == "Invalid":
