@@ -16,4 +16,10 @@ data is stored in .txt in server
 but clint can get file in the desire formate
 
 # SCREEN SHOTS
+We devolped a GUI for client
+this the clint window
 ![Screenshot (98)](https://user-images.githubusercontent.com/98268633/188300201-98ddf1d5-c38d-4a63-a6bb-0108cd5a0542.png)
+
+Client can access Data only if the authorized
+![Screenshot (99)](https://user-images.githubusercontent.com/98268633/188300250-8d343e39-856c-463f-ae3c-2ec4fb65ac1f.png)
+
