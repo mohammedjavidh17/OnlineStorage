@@ -30,4 +30,3 @@ User read, write(Edit) and save in this window
 // Client's computer is geting data directly from serveer (NO DATA IS STORED IN THE CLIENT's COMPUTER)
 // TI can only preview it
 ![Screenshot (101)](https://user-images.githubusercontent.com/98268633/188300349-726e2487-6cf3-45d8-a9d6-652b92a9c4a7.png)
-
